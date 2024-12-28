@@ -24,7 +24,22 @@ class _HomepageState extends State<Homepage> {
       body: Row(
         children: [
           Column(
-            FlatButton()
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+              onPressed: (){},
+               child: const Column(
+                children: [
+                  FlutterLogo(),
+                  Text('Clock', style: TextStyle(color: Colors.white, fontSize: 14),)
+                ],
+               )
+               ),
+            ],
+          ),
+          const VerticalDivider(
+            color: Colors.white54,
+            width: 1,
           ),
           Container(
             alignment: Alignment.center,
