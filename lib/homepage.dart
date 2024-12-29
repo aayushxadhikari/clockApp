@@ -19,6 +19,12 @@ class _HomepageState extends State<Homepage> {
     var timezoneString = now.timeZoneOffset.toString().split('.').first;
     var offsetSign = timezoneString.startsWith('-') ? '' : '+';
 
+    double iconSize = 1.8; // Increase this value for larger icons
+    double buttonPadding = 20.0; // Padding for buttons
+    double clockPadding = 40.0; // Padding for clock section to ensure spacing
+    double clockTextPadding = 50.0; // Added padding to lower the "Clock" text
+    double logoPadding = 40.0; // Padding for logo section to ensure spacing
+
     return Scaffold(
       backgroundColor: const Color(0xFF2D2F41),
       body: Row(
@@ -29,10 +35,10 @@ class _HomepageState extends State<Homepage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                buildMenuButton('Clock', 'assets/clock.png'),
-                buildMenuButton('Alarm', 'assets/alarm.png'),
-                buildMenuButton('Timer', 'assets/timer.png'),
-                buildMenuButton(' Stop\nWatch', 'assets/stopwatch.png'),
+                buildMenuButton('Clock', 'assets/clock.png', iconSize, buttonPadding),
+                buildMenuButton('Alarm', 'assets/alarm.png', iconSize, buttonPadding),
+                buildMenuButton('Timer', 'assets/timer.png', iconSize, buttonPadding),
+                buildMenuButton(' Stop\nWatch', 'assets/stopwatch.png', iconSize, buttonPadding),
               ],
             ),
           ),
@@ -50,14 +56,18 @@ class _HomepageState extends State<Homepage> {
                   Flexible(
                     flex: 1,
                     fit: FlexFit.tight,
-                    child: Text(
-                      "Clock",
-                      style:
-                          GoogleFonts.lato(color: Colors.white, fontSize: 24),
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: logoPadding), // Pushes the logo lower
+                      child: Image.asset(
+                        'assets/first.png', // Replaced Clock text with the logo
+                        width: 300, // Increased width for a larger logo
+                        height: 150, // Increased height for a larger logo
+                        fit: BoxFit.contain, // Ensures logo maintains aspect ratio
+                      ),
                     ),
                   ),
                   Flexible(
-                    flex: 4,
+                    flex: 2,
                     fit: FlexFit.tight,
                     child: Column(
                       children: [
@@ -66,7 +76,7 @@ class _HomepageState extends State<Homepage> {
                           style: const TextStyle(
                               color: Colors.white, fontSize: 60),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 8),
                         Text(
                           formattedDate,
                           style: const TextStyle(
@@ -76,20 +86,26 @@ class _HomepageState extends State<Homepage> {
                       ],
                     ),
                   ),
-                  const Flexible(flex: 4,
-                   child: Align(
-                    alignment: Alignment.center,
-                    child: ClockView(size: 300,))),
+                  const Flexible(
+                      flex: 4,
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: ClockView(
+                            size: 300,
+                          ))),
                   Flexible(
-                    flex: 5,
+                    flex: 3,
                     fit: FlexFit.loose,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Timezone",
-                          style:
-                              GoogleFonts.lato(color: Colors.white, fontSize: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 24.0),
+                          child: Text(
+                            "Timezone",
+                            style: GoogleFonts.lato(
+                                color: Colors.white, fontSize: 20),
+                          ),
                         ),
                         const SizedBox(height: 16),
                         Row(
@@ -115,9 +131,9 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  Padding buildMenuButton(String title, String image) {
+  Padding buildMenuButton(String title, String image, double iconSize, double padding) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: EdgeInsets.symmetric(vertical: padding),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
@@ -129,7 +145,8 @@ class _HomepageState extends State<Homepage> {
           children: [
             Image.asset(
               image,
-              scale: 1.5,
+              width: iconSize * 30, // Making the icons larger
+              height: iconSize * 30, // Making the icons larger
             ),
             const SizedBox(height: 16),
             Text(
