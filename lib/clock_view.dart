@@ -4,7 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class ClockView extends StatefulWidget {
-  const ClockView({super.key});
+  final double size;
+
+  const ClockView({super.key, required this.size});
 
   @override
   State<ClockView> createState() => _ClockViewState();
@@ -27,8 +29,8 @@ class _ClockViewState extends State<ClockView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
-      height: 300,
+      width: widget.size,
+      height: widget.size,
       child: Transform.rotate(
         angle: -pi / 2,
         child: CustomPaint(
@@ -55,7 +57,7 @@ class ClockPainter extends CustomPainter {
     var outlineBrush = Paint()
       ..color = const Color(0xFFEAECFF)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 16;
+      ..strokeWidth = size.width / 20;
 
     var centerFillBrush = Paint()..color = const Color(0xFFEAECFF);
 
@@ -63,19 +65,19 @@ class ClockPainter extends CustomPainter {
       ..color = Colors.orange[300]!
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 8;
+      ..strokeWidth = size.width / 60;
     var minHandBrush = Paint()
       ..shader = RadialGradient(colors: [Colors.red, Colors.white])
           .createShader(Rect.fromCircle(center: center, radius: radius))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 14;
+      ..strokeWidth = size.width / 30;
     var hourHandBrush = Paint()
       ..shader = RadialGradient(colors: [Colors.pink, Colors.blue])
           .createShader(Rect.fromCircle(center: center, radius: radius))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 16;
+      ..strokeWidth = size.width /24;
 
     var dashBrush = Paint()
       ..color = Color(0xFFEAECFF)
@@ -83,7 +85,6 @@ class ClockPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 2;
 
-      
     canvas.drawCircle(center, radius - 40, fillBrush);
     canvas.drawCircle(center, radius - 40, outlineBrush);
 

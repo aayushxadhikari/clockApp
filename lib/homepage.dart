@@ -47,38 +47,64 @@ class _HomepageState extends State<Homepage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Clock",
-                    style: GoogleFonts.lato(color: Colors.white, fontSize: 24),
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Text(
+                      "Clock",
+                      style:
+                          GoogleFonts.lato(color: Colors.white, fontSize: 24),
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    formattedTime,
-                    style: const TextStyle(color: Colors.white, fontSize: 60),
+                  Flexible(
+                    flex: 4,
+                    fit: FlexFit.tight,
+                    child: Column(
+                      children: [
+                        Text(
+                          formattedTime,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 60),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          formattedDate,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 20),
+                        ),
+                        const SizedBox(height: 32),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    formattedDate,
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  const SizedBox(height: 32),
-                  // Replace ClockView with your actual implementation
-                  ClockView(),
-                  const SizedBox(height: 32),
-                  Text(
-                    "Timezone",
-                    style: GoogleFonts.lato(color: Colors.white, fontSize: 20),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      const Icon(Icons.language, color: Colors.white),
-                      const SizedBox(width: 16),
-                      Text(
-                        'UTC$offsetSign$timezoneString',
-                        style: GoogleFonts.lato(color: Colors.white, fontSize: 16),
-                      ),
-                    ],
+                  const Flexible(flex: 4,
+                   child: Align(
+                    alignment: Alignment.center,
+                    child: ClockView(size: 300,))),
+                  Flexible(
+                    flex: 5,
+                    fit: FlexFit.loose,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Timezone",
+                          style:
+                              GoogleFonts.lato(color: Colors.white, fontSize: 20),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            const Icon(Icons.language, color: Colors.white),
+                            const SizedBox(width: 16),
+                            Text(
+                              'UTC$offsetSign$timezoneString',
+                              style: GoogleFonts.lato(
+                                  color: Colors.white, fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -93,22 +119,26 @@ class _HomepageState extends State<Homepage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: const Color(0xFF1A1C29),
-                    shadowColor: Colors.transparent,
-                  ),
-                  onPressed: () {},
-                  child: Column(
-                    children: [
-                      Image.asset(image, scale: 1.5,),
-                      const SizedBox(height: 16),
-                      Text(
-                        title ?? '',
-                        style: GoogleFonts.lato(color: Colors.white, fontSize: 14),
-                      ),
-                    ],
-                  ),
-                ),
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.white,
+          backgroundColor: const Color(0xFF1A1C29),
+          shadowColor: Colors.transparent,
+        ),
+        onPressed: () {},
+        child: Column(
+          children: [
+            Image.asset(
+              image,
+              scale: 1.5,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              title ?? '',
+              style: GoogleFonts.lato(color: Colors.white, fontSize: 14),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
